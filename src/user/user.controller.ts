@@ -2,8 +2,12 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Serialize} from 'src/interceptors/serialize.interceptors';
+// import { UseInterceptors } from '@nestjs/common';
+import { UserDto } from './dto/user.dto';
 
 @Controller('user')
+@Serialize(UserDto)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -16,10 +20,13 @@ export class UserController {
   findAll() {
     return this.userService.findAll();
   }
-
+ 
+  
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+    const user = this.userService.findOne(+id);
+
+    return user;
   }
 
   @Patch(':id')

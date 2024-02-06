@@ -24,19 +24,20 @@ export class CreateUserDto {
 
     @IsNotEmpty()
     @MinLength(3, { message: 'Username must have atleast 3 characters.' })
-    @IsAlphanumeric(null, {
-        message: 'Username does not allow other than alpha numeric chars.',
-      })
+    // @IsAlphanumeric(null, {
+    //     message: 'Username does not allow other than alpha numeric chars.',
+    //   })
+    @IsString()
     username: string;
 
 
     @IsNotEmpty()
-    @IsEmail(null, { message: ''})
+    @IsEmail()
     email: string;
 
     @IsNotEmpty()
     @IsString()
-    @Matches(passwordRegEx, { message: ''})
+    // @Matches(passwordRegEx, { message: ''})
     password: string;
 
     
