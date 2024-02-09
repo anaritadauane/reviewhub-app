@@ -25,6 +25,15 @@ export class UserController {
       createUserDto.password
     );
 
+
+  }
+
+  @Post('/signin')
+  signin(@Body() body: CreateUserDto) {
+   {
+    return this.authService.signin(body.email, body.password);
+   }
+
     
   }
 
