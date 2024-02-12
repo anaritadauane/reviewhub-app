@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Session } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -6,6 +6,7 @@ import { Serialize} from 'src/interceptors/serialize.interceptors';
 // import { UseInterceptors } from '@nestjs/common';
 import { UserDto } from './dto/user.dto';
 import { AuthService } from './auth.service';
+import { SigninDto } from './dto/signin-user.dto';
 
 @Controller('auth')
 @Serialize(UserDto)
@@ -14,10 +15,17 @@ export class UserController {
                private authService: AuthService
     ) {}
 
+
+  @Get('/profile')
+  getProfile(@Session() session : any){
+    const user = this.userService.findOne(session.userId);
+    return user;
+  }
+
   @Post('/signup')
-  create(@Body() createUserDto: CreateUserDto) {
+  async create(@Body() createUserDto: CreateUserDto, @Session() session: any) {
     // I could use body.email, body.password 
-    return this.authService.signup(
+    const user = await this.authService.signup(
       createUserDto.firstName,
       createUserDto.surname,
       createUserDto.username,
@@ -25,16 +33,28 @@ export class UserController {
       createUserDto.password
     );
 
+    session.userId = user.id;
+    
+    return user;
 
   }
 
   @Post('/signin')
-  signin(@Body() body: CreateUserDto) {
-   {
-    return this.authService.signin(body.email, body.password);
-   }
+  async signin(@Body() body: {email: string, password: string}, @Session() session: any) {
+    // console.log(body)
+   
+    const user = await this.authService.signin(body.email, body.password);
 
-    
+    console.log(user.firstName)
+
+    session.userId = user.id;
+    return user;
+   
+  }
+
+  @Post('/signout')
+  signOut(@Session() session : any){
+    session.userId = null;
   }
 
   @Get()

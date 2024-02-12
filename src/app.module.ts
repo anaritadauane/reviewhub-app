@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user/entities/user.entity';
-import { AuthService } from './user/auth.service';
+// import { AuthService } from './user/auth.service';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
