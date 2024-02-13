@@ -5,6 +5,8 @@ import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user/entities/user.entity';
 // import { AuthService } from './user/auth.service';
+import { BusinessesModule } from './businesses/businesses.module';
+import { ReviewsModule } from './reviews/reviews.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -18,7 +20,9 @@ import { User } from './user/entities/user.entity';
     synchronize: true, 
     logging: false 
   }),
-    UserModule],
+    UserModule,
+    BusinessesModule,
+    ReviewsModule],
   controllers: [AppController],
   providers: [AppService],
 })

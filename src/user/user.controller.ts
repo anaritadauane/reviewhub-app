@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Session } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Session, 
+         UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -6,19 +7,31 @@ import { Serialize} from 'src/interceptors/serialize.interceptors';
 // import { UseInterceptors } from '@nestjs/common';
 import { UserDto } from './dto/user.dto';
 import { AuthService } from './auth.service';
-import { SigninDto } from './dto/signin-user.dto';
+// import { SigninDto } from './dto/signin-user.dto';
+import { CurrentUser } from './decorators/current-user.decorator';
+import { User } from './entities/user.entity';   
+import { AuthGuard } from '../guards/auth.guard';
+
 
 @Controller('auth')
 @Serialize(UserDto)
+// @UseInterceptors(CurrentUserInterceptor)
 export class UserController {
   constructor( private userService: UserService,
                private authService: AuthService
     ) {}
 
 
+  // @Get('/profile')
+  // getProfile(@Session() session : any){
+  //   const user = this.userService.findOne(session.userId);
+  //   return user;
+  // }
+
+
   @Get('/profile')
-  getProfile(@Session() session : any){
-    const user = this.userService.findOne(session.userId);
+  @UseGuards(AuthGuard)
+  getProfile(@CurrentUser() user: User){
     return user;
   }
 
@@ -44,8 +57,6 @@ export class UserController {
     // console.log(body)
    
     const user = await this.authService.signin(body.email, body.password);
-
-    console.log(user.firstName)
 
     session.userId = user.id;
     return user;
