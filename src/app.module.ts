@@ -4,9 +4,11 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user/entities/user.entity';
+import { Review } from './reviews/entities/review.entity';
 // import { AuthService } from './user/auth.service';
 import { BusinessesModule } from './businesses/businesses.module';
 import { ReviewsModule } from './reviews/reviews.module';
+import { Business } from './businesses/entities/business.entity';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -15,7 +17,7 @@ import { ReviewsModule } from './reviews/reviews.module';
     port: 5432,
     password: '123ana456',
     username: 'anadauane', 
-    entities: [User], 
+    entities: [User, Review, Business], 
     database: 'reviewhub', 
     synchronize: true, 
     logging: false 
