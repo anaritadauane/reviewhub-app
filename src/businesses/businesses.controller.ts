@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseBoolPipe } from '@nestjs/common';
 import { BusinessesService } from './businesses.service';
 import { CreateBusinessDto } from './dto/create-business.dto';
 import { UpdateBusinessDto } from './dto/update-business.dto';
@@ -30,5 +30,10 @@ export class BusinessesController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.businessesService.remove(+id);
+  }
+
+  @Patch(':id/rate')
+  rate(@Param('id') id: string, @Body('rating') rating: number){
+    return this.businessesService.rateBusiness(+id, rating);
   }
 }

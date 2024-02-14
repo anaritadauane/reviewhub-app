@@ -31,4 +31,9 @@ export class ReviewsController {
   remove(@Param('id') id: string) {
     return this.reviewService.remove(+id);
   }
+
+  @Patch('id/helpful')
+  helpfulcount(@Param('id') id: string){
+    return this.reviewService.incrementHelpfulCount(+id);
+  }
 }

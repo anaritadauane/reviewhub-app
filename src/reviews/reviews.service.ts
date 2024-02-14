@@ -45,4 +45,14 @@ export class ReviewsService {
     }
     return this.repo.remove(review);
   }
+
+  async incrementHelpfulCount(id: number){
+    const review = await this.repo.findOne({ where: { id }});
+
+    if(review){
+      review.helpfulCount++;
+    }
+
+    await this.repo.save(review);
+  }
 }

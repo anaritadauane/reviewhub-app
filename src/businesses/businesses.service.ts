@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateBusinessDto } from './dto/create-business.dto';
@@ -16,18 +16,50 @@ export class BusinessesService {
   }
 
   findAll() {
-    return `This action returns all businesses`;
+    return this.repo.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} business`;
+    if(!id){
+      return null;
+    }
+
+    return this.repo.findOne({ where: {id}})
   }
 
-  update(id: number, attrs: Partial<Business>) {
-    return `This action updates a #${id} business`;
+  async update(id: number, attrs: Partial<Business>) {
+    
+    const business = await this.repo.findOne({ where: {id}});
+
+    if(!business){
+      throw new NotFoundException('Business not found');
+    }
+
+    Object.assign(business, attrs);
+    return this.repo.save(business);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} business`;
+  async remove(id: number) {
+    const business = await this.repo.findOne({ where: {id}});
+
+    if(!business){
+      throw new NotFoundException('Business not found');
+    }
+    return this.repo.remove(business);
+  }
+
+
+  async rateBusiness(id: number, rating: number){
+    const business = await this.repo.findOne({ where: {id}});
+
+    if(business){
+      business.averageRating = ( business.averageRating * business.numberOfRatings + rating ) / ( business.numberOfRatings + 1 )
+
+      // increment total number of rating 
+      business.numberOfRatings++;
+    }
+
+    // save the updated value of the business
+    await this.repo.save(business);
   }
 }

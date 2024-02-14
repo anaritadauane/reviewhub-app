@@ -11,6 +11,7 @@ import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { User } from './entities/user.entity';   
 import { AuthGuard } from '../guards/auth.guard';
+import { SigninDto } from './dto/signin-user.dto';
 
 
 @Controller('auth')
@@ -53,10 +54,10 @@ export class UserController {
   }
 
   @Post('/signin')
-  async signin(@Body() body: {email: string, password: string}, @Session() session: any) {
+  async signin(@Body() signInDto: {email: string, password: string}, @Session() session: any) {
     // console.log(body)
    
-    const user = await this.authService.signin(body.email, body.password);
+    const user = await this.authService.signin(signInDto.email, signInDto.password);
 
     session.userId = user.id;
     return user;

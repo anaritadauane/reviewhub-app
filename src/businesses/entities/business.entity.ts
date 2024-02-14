@@ -25,9 +25,9 @@ export class Business {
     address: string;
 
 
-    @Column()
+    @Column({ default: 0 })
     averageRating: number; 
 
-    @Column()
-    numberOfRating: number;
+    @Column({ default: 0})
+    numberOfRatings: number;
 }
