@@ -9,6 +9,9 @@ import { Review } from './reviews/entities/review.entity';
 import { BusinessesModule } from './businesses/businesses.module';
 import { ReviewsModule } from './reviews/reviews.module';
 import { Business } from './businesses/entities/business.entity';
+import { CommentsModule } from './comments/comments.module';
+import { CategoriesModule } from './categories/categories.module';
+import { SubcategoriesModule } from './subcategories/subcategories.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -24,7 +27,10 @@ import { Business } from './businesses/entities/business.entity';
   }),
     UserModule,
     BusinessesModule,
-    ReviewsModule],
+    ReviewsModule,
+    CommentsModule,
+    CategoriesModule,
+    SubcategoriesModule],
   controllers: [AppController],
   providers: [AppService],
 })
