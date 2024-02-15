@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Review } from "src/reviews/entities/review.entity";
+import { User } from "src/user/entities/user.entity";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity()
@@ -11,4 +13,11 @@ export class Comment {
 
     @Column()
     datePosted: Date;
+
+    @ManyToOne(() => Review, (review) => review.comments)
+    review: Review;
+
+    @ManyToOne(() => User, (user) => user.comment)
+    user: User;
+
 }

@@ -1,7 +1,13 @@
 import { Column, 
          Entity, 
          PrimaryGeneratedColumn,
-         CreateDateColumn } from "typeorm";
+         CreateDateColumn,
+        ManyToOne, 
+        OneToMany} from "typeorm";
+
+import { User } from "src/user/entities/user.entity";
+import { Business } from "src/businesses/entities/business.entity";
+import { Comment } from "src/comments/entities/comment.entity";
 
 
 @Entity()
@@ -21,4 +27,17 @@ export class Review {
 
     @Column({ default: 0 }) // default value for helpful count 
     helpfulCount: number;
+
+    @ManyToOne(() => User, (user) => user.reviews)
+    user: User;
+
+    @ManyToOne(() => Business, (business) => business.reviews)
+    business: Business;
+
+    @OneToMany(() => Comment, (comment) => comment.review)
+    comments: Comment[]
+
+    // @OneToMany(() => Review, (reviews) => reviews.user)
+    // reviews: Review[]
+   
 }

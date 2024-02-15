@@ -1,4 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn} from "typeorm";
+import { Category } from "src/categories/entities/category.entity";
+import { Review } from "src/reviews/entities/review.entity";
+import { Subcategory } from "src/subcategories/entities/subcategory.entity";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany, ManyToOne} from "typeorm";
 
 @Entity()
 export class Business {
@@ -30,4 +33,13 @@ export class Business {
 
     @Column({ default: 0})
     numberOfRatings: number;
+
+    @OneToMany(() => Review, (reviews) => reviews.business)
+    reviews: Review[];
+
+    @ManyToOne(() => Category, (category) => category.business)
+    category: Category;
+
+    @ManyToOne(() => Subcategory, (subcategory) => subcategory.business)
+    subcategory: Subcategory;
 }

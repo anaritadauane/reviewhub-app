@@ -1,5 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany } from "typeorm";
 import { Exclude } from "class-transformer";
+import { Review } from "src/reviews/entities/review.entity";
+import { Comment } from "src/comments/entities/comment.entity";
 
 @Entity()
 export class User {
@@ -19,7 +21,11 @@ export class User {
 
     // @Column()
     // dob: Date;
+    @OneToMany(() => Review, (reviews) => reviews.user)
+    reviews: Review[]
 
+    @OneToMany(() => Comment, (comment) => comment.user)
+    comment: Comment[]
 
     @Column({ type: 'varchar', length: 40 })
     email: string;
