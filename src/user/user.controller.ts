@@ -3,7 +3,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Session,
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Serialize} from 'src/interceptors/serialize.interceptors';
+import { Serialize} from '../interceptors/serialize.interceptors';
 // import { UseInterceptors } from '@nestjs/common';
 import { UserDto } from './dto/user.dto';
 import { AuthService } from './auth.service';
@@ -37,7 +37,7 @@ export class UserController {
   }
 
   @Post('/signup')
-  async create(@Body() createUserDto: CreateUserDto, @Session() session: any) {
+  async create(@Body() createUserDto: CreateUserDto, @Session() session?: any) {
     // I could use body.email, body.password 
     const user = await this.authService.signup(
       createUserDto.firstName,

@@ -10,7 +10,7 @@ let service : AuthService;
 beforeEach( async () =>{
     // mock of the UserService
     const mockUserService: Partial <UserService> = {
-        findAll: () => Promise.resolve([]),
+        findByEmail: () => Promise.resolve([]),
         create: ( { firstName, 
                     surname, 
                     username, 
@@ -47,6 +47,7 @@ it('creates a new user with a salted and hashed password', async () => {
     expect(salt).toBeDefined();
     expect(hash).toBeDefined();
 });
+
 
 });
 

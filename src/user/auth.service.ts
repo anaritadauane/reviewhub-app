@@ -21,7 +21,7 @@ export class AuthService {
 
         const users = await this.userService.findByEmail(email);
 
-        if(users.length){
+        if(users && users.length){
             throw new BadRequestException('Email already in use');
         }
         

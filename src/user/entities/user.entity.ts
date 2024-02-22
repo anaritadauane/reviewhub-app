@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany } from "typeorm";
 import { Exclude } from "class-transformer";
-import { Review } from "src/reviews/entities/review.entity";
-import { Comment } from "src/comments/entities/comment.entity";
+import { Review } from '../../reviews/entities/review.entity';
+import { Comment } from '../../comments/entities/comment.entity';
 
 @Entity()
 export class User {

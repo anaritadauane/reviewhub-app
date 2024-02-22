@@ -5,9 +5,9 @@ import { Column,
         ManyToOne, 
         OneToMany} from "typeorm";
 
-import { User } from "src/user/entities/user.entity";
-import { Business } from "src/businesses/entities/business.entity";
-import { Comment } from "src/comments/entities/comment.entity";
+import { User } from '../../user/entities/user.entity';
+import { Business } from '../../businesses/entities/business.entity';
+import { Comment } from '../../comments/entities/comment.entity';
 
 
 @Entity()

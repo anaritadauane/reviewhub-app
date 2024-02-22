@@ -1,6 +1,6 @@
-import { Category } from "src/categories/entities/category.entity";
-import { Review } from "src/reviews/entities/review.entity";
-import { Subcategory } from "src/subcategories/entities/subcategory.entity";
+import { Category } from '../../categories/entities/category.entity';
+import { Review } from '../../reviews/entities/review.entity';
+import { Subcategory } from '../../subcategories/entities/subcategory.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany, ManyToOne} from "typeorm";
 
 @Entity()

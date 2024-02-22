@@ -1,5 +1,5 @@
-import { Business } from "src/businesses/entities/business.entity";
-import { Category } from "src/categories/entities/category.entity";
+import { Business } from "../../businesses/entities/business.entity";
+import { Category } from '../../categories/entities/category.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from "typeorm";
 
 @Entity()

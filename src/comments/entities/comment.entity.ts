@@ -1,5 +1,5 @@
-import { Review } from "src/reviews/entities/review.entity";
-import { User } from "src/user/entities/user.entity";
+import { Review } from '../../reviews/entities/review.entity';
+import { User } from '../../user/entities/user.entity';
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 

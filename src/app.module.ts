@@ -13,6 +13,11 @@ import { CommentsModule } from './comments/comments.module';
 import { CategoriesModule } from './categories/categories.module';
 import { SubcategoriesModule } from './subcategories/subcategories.module';
 
+import { CacheModule } from '@nestjs/cache-manager';
+import { Category } from './categories/entities/category.entity';
+import { Subcategory } from './subcategories/entities/subcategory.entity';
+import { Comment } from './comments/entities/comment.entity';
+
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'postgres',
@@ -20,7 +25,7 @@ import { SubcategoriesModule } from './subcategories/subcategories.module';
     port: 5432,
     password: '123ana456',
     username: 'anadauane', 
-    entities: [User, Review, Business], 
+    entities: [User, Review, Business, Comment, Category, Subcategory], 
     database: 'reviewhub', 
     synchronize: true, 
     logging: false 
@@ -30,7 +35,9 @@ import { SubcategoriesModule } from './subcategories/subcategories.module';
     ReviewsModule,
     CommentsModule,
     CategoriesModule,
-    SubcategoriesModule],
+    SubcategoriesModule,
+  
+  CacheModule.register() ],
   controllers: [AppController],
   providers: [AppService],
 })
